@@ -167,9 +167,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup pack CLI
-        uses: buildpacks/pack-action@v5
-
       - name: Build container image from JAR (Paketo)
         env:
           BP_JVM_VERSION: "21.*"
