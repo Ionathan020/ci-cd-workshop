@@ -48,6 +48,8 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             element = 'CLASS'
+            // Exclude the Spring Boot entrypoint from coverage verification
+            excludes = ['com.example.demo.DemoApplication']
 
             limit {
                 counter = 'LINE'
