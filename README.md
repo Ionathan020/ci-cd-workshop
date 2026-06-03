@@ -96,17 +96,4 @@ Opmerking: De stub‑workflows zijn opzettelijk incompleet en draaien alleen via
 3. Draai de workflow handmatig via het Actions‑tab ("Run workflow").
 4. Vergelijk met `level-x-solution.yml` als je vastloopt.
 
-### Extra: secrets en permissies
-- Voor pushen naar GHCR (Docker) heb je doorgaans voldoende aan `GITHUB_TOKEN` met `packages: write` permissie. Zie de level‑README voor details.
-- Voor coverage (JaCoCo) moet je zelf de Gradle Jacoco plugin toevoegen in `build.gradle` (bewust onderdeel van de opdracht).
-
-
-
-Fixes:
-- TODO's per level controleren. Zijn bij level 2 bijvoorbeeld al helemaal ingevuld door Junie
-- Level 3 oplitsen in 3A en 3B, ook voor deelnemer yml.
-  3A: Zorg dat code coverage wordt toegevoegd en laat de pipeline slagen (60% threshold)
-  3B: Threshold staat hoger en zorg ervoor dat de pipeline die nu faalt, weer groen wordt.
-- Level 7 checkout verplaatsen uit action
-
 

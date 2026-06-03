@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Java 21
         uses: actions/setup-java@v4
@@ -22,7 +22,7 @@ jobs:
 
       - name: Run tests + generate JaCoCo report
         env:
-          JACOCO_MINIMUM_COVERAGE: "0.01"
+          JACOCO_MINIMUM_COVERAGE: "0.60"
         run: ./gradlew test jacocoTestReport
 
       - name: Upload coverage reports

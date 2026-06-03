@@ -1,32 +1,22 @@
 # Level 5 — Bowser's Castle
 
-Doel (verhaal): Bestorm Bowser’s kasteel met een Dockerized applicatie.
+#### Doel: Bestorm Bowser’s kasteel met een Dockerized applicatie.
 
-Wat je leert:
-- Een container image bouwen met Spring Boot buildpacks (`bootBuildImage`)
-- Alleen pushen naar een registry (GHCR) vanaf `main`
+#### Daadwerkelijk doel:
+- Een container image bouwen.
+- Image pushen naar GHCR (GitHub Container Registry).
+- Uit voeren steps enkel laten draaien op bepaalde branches (`main`).
 
-Opdracht:
+#### Opdracht:
 1. Open `.github/workflows/level-5.yml`.
-2. Stel een image‑naam in, bijv. `ghcr.io/<owner>/<repo>:<sha>`.
-3. Log in op GHCR met `docker/login-action@v3` en `GITHUB_TOKEN` (alleen op `main`).
-4. Bouw de image met `./gradlew bootBuildImage --imageName <image>`.
-5. Push de image alleen als `github.ref == 'refs/heads/main'`.
+2. Vervang de TODO's zodat de workflow succesvol draait.
+3. Zorg dat je kan inloggen op GHCR, maar doe dit alleen voor de `main` branch.
+4. Push de image (wederom enkel op de `main` branch).
 
-Acceptatiecriteria:
-- De workflow bouwt een image succesvol.
+#### Acceptatiecriteria:
+- De workflow bouwt en pusht een image succesvol (terug te vinden onder Packages in GitHub UI).
 - Push vindt alleen plaats op `main` (controleer de logs; op andere branches mag push niet gebeuren).
 
-Permissies & secrets:
-- Voeg aan de workflow `permissions: packages: write` toe om naar GHCR te pushen.
+#### Hints
+- Voor GHCR push heb je `packages: write` permissie nodig.
 - `GITHUB_TOKEN` is voldoende voor authenticatie naar GHCR binnen dezelfde repo/org.
-
-Hints:
-- IMAGE variabelen handig instellen:
-  - `IMAGE=ghcr.io/${{ github.repository }}:${{ github.sha }}`
-  - Optioneel: ook `latest` tag pushen.
-- Actions: `docker/login-action@v3`, `actions/setup-java@v4`, `gradle/actions/setup-gradle@v4`.
-
-Stretch goals:
-- Voeg image labels toe (build metadata) via Gradle of `pack` arguments.
-- Publiceer een SBOM of vulnerability scan (bijv. Trivy action).

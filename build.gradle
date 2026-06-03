@@ -41,8 +41,6 @@ jacocoTestReport {
     }
 }
 
-def minimumTestCoverage =
-        System.getenv("JACOCO_MINIMUM_COVERAGE")?.toBigDecimal() ?: 0.00
 
 jacocoTestCoverageVerification {
     violationRules {
@@ -53,7 +51,7 @@ jacocoTestCoverageVerification {
 
             limit {
                 counter = 'LINE'
-                minimum = minimumTestCoverage
+                minimum = System.getenv("JACOCO_MINIMUM_COVERAGE")?.toBigDecimal() ?: 0.00
             }
         }
     }

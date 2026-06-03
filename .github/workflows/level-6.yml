@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Java 21
         uses: actions/setup-java@v4
@@ -32,28 +32,10 @@ jobs:
           java-version: '21'
           distribution: temurin
 
-      - name: Cache Gradle wrapper
-        # TODO: configureer actions/cache met een goede key en paths
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-wrapper-REPLACE_ME
-          restore-keys: |
-            ${{ runner.os }}-gradle-wrapper-
-
-      - name: Cache Gradle caches
-        # TODO: voeg ook ~/.gradle/caches en evt. ~/.gradle/notifications toe
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/notifications
-          key: ${{ runner.os }}-gradle-caches-REPLACE_ME
-          restore-keys: |
-            ${{ runner.os }}-gradle-caches-
+      # TODO - Voeg Gradle caching toe
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build (voel de snelheid!)
+      - name: Build
         run: ./gradlew build --scan --no-daemon

@@ -1,37 +1,18 @@
-#############################################
-# Level 1 — Yoshi's Island
-#
-# Doel
-#  Verbind het Mushroom Kingdom met Yoshi's Island.
-#
-# Daadwerkelijk doel:
-# - Een workflow automatisch laten starten
-# - De code kunnen builden met Gradle
-#############################################
 name: Level 1 - Yoshi's Island
 
 on:
-  workflow_dispatch: {}
-  # TODO: Vervang bovenstaande zodat de pipeline automatisch aftrapt bij een "logisch" event
+  workflow_dispatch: {} # TODO: Bonus opdracht, vervang door een echte trigger.
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code (Mario springt in een groene pijp)
-        uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v6
 
-        # TODO - aanpassen naar enkel bovenstaande step en de rest zelf laten bouwen + add falende test
+        # TODO - Configureer JDK 21 - hint: wellicht ook iets met actions?
 
-      - name: Setup Java 21
-        uses: # TODO: Configureer JDK 21 - hint: wellicht ook iets met actions?
-        with:
-          java-version: '21'
-          distribution: # TODO: Kies je favoriet - hint: 'temurin'
+        # TODO - Setup Gradle
 
-      - name: Setup Gradle (Toad levert gereedschap)
-        uses: # TODO: Kies een geschikte Gradle action
-
-      - name: Build with Gradle (Build the castle)
-        run: # TODO: Run een gradle build commando - hint: ./gradlew ...
+        # TODO - Run een gradle build command

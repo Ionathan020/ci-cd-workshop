@@ -1,18 +1,20 @@
 
 # Level 1 — Yoshi's Island
 
-Doel: Verbind het Mushroom Kingdom met Yoshi's Island.
+#### Doel: Verbind het Mushroom Kingdom met Yoshi's Island.
 
-Wat je leert:
-- Een GitHub Actions workflow starten
-- De applicatie builden met Gradle
+#### Daadwerkelijk doel:
+- Een Github Actions workflow (automatisch) starten.
+- De code kunnen builden m.b.v. Gradle.
 
-Opdracht:
+#### Opdracht:
 1. Open `.github/workflows/level-1.yml`.
-2. Vervang de TODO's zodat de workflow bouwt met Java 21 en Gradle.
-3. Draai de workflow handmatig via het Actions‑tab (workflow_dispatch).
-4. (Optioneel) Deze workflow dient nu handmatig afgetrapt te worden. Vervang dit door een echte trigger (`push`).
+2. Vervang de TODO's zodat de workflow succesvol draait met Java 21 en Gradle.
+3. Draai de workflow handmatig via het Actions tab.
 
-Acceptatiecriteria:
-- Workflow runt succesvol en voert `./gradlew ...` uit.
-- Resultaat zichtbaar in GitHub Actions logs.
+#### Bonus opdracht (Optioneel):
+1. Deze workflow dient nu handmatig afgetrapt te worden (workflow_dispatch). Vervang dit door een echte trigger (`push`).
+
+#### Acceptatiecriteria:
+- Workflow runt succesvol en voert een gradle build command uit.
+- Het resultaat is zichtbaar in de GitHub Actions logs.

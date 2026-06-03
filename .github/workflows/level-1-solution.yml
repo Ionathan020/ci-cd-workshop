@@ -1,8 +1,10 @@
 name: Level 1 - Yoshi's Island (Solution)
 
 on:
-  push:
-    branches: [ "**" ]
+  workflow_dispatch: {}
+#  Bonus opdracht solution:
+#  push:
+#    branches: [ "**" ]
 
 jobs:
   build:

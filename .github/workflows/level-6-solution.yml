@@ -1,16 +1,7 @@
-#############################################
-# Level 6 — Rainbow Road (SOLUTION)
-#
-# Versnelt builds met caching en annuleert dubbele runs met concurrency.
-#############################################
 name: Level 6 - Rainbow Road (Solution)
 
 on:
   workflow_dispatch: {}
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   speed-run:
