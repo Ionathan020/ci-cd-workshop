@@ -99,11 +99,6 @@ jobs:
           name: app-jar
           path: docker
 
-      - name: List downloaded JARs (debug)
-        run: |
-          echo "Searching for JAR in artifact..."
-          find docker -type f -name "*.jar" -print | sed -n '1,200p'
-
       - name: Login to GHCR (alleen op main)
         if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v3
@@ -122,6 +117,9 @@ jobs:
           echo "Using JAR: ${JAR_FILE}"
           # Normalize path/name so Dockerfile can COPY it without build args
           cp -f "${JAR_FILE}" docker/app.jar
+
+      - name: Build container image (Docker)
+        run: |
           docker build \
             -t ${IMAGE} \
             -f docker/Dockerfile \

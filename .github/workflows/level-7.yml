@@ -10,7 +10,7 @@
 # - Pas best‑practices toe: duidelijke job/step namen, conditionals, permissions, artifacts, caching
 #
 # Instructie:
-# - Deze stub is bewust log en bulky: 1 job met veel stappen en TODO’s
+# - Deze stub is bewust log en bulky: 1 job met veel stappen
 # - Jouw opdracht: splits op in logische jobs en/of herbruikbare componenten
 # - Houd functionaliteit gelijkwaardig aan deze monolitische variant
 #############################################
@@ -18,11 +18,6 @@ name: Level 7 - Star Road
 
 on:
   workflow_dispatch: {}
-
-# TODO: (optioneel) concurrency toevoegen om dubbele runs te annuleren
-# concurrency:
-#   group: ${{ github.workflow }}-${{ github.ref }}
-#   cancel-in-progress: true
 
 permissions:
   contents: read
@@ -36,11 +31,9 @@ jobs:
       packages: write
 
     env:
-      # TODO: kies een image naam (GHCR voorbeeld)
       IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
       LATEST: ghcr.io/${{ github.repository }}:latest
       JACOCO_XML: build/reports/jacoco/test/jacocoTestReport.xml
-      THRESHOLD: "0.80" # TODO: maak dit configureerbaar
 
     steps:
       - name: Check out code (Mario springt in de pijp)
@@ -53,12 +46,11 @@ jobs:
           distribution: temurin
 
       - name: Cache Gradle wrapper (sneller opstarten)
-        # TODO: vervang REPLACE_ME door een hashFiles() van relevante bestanden
         uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-wrapper-REPLACE_ME
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-wrapper-
 
@@ -70,7 +62,7 @@ jobs:
             ~/.gradle/daemon
             ~/.gradle/native
             ~/.gradle/notifications
-          key: ${{ runner.os }}-gradle-caches-REPLACE_ME
+          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('**/*.gradle*', '**/gradle/wrapper/gradle-wrapper.properties', '**/gradle/libs.versions.toml') }}
           restore-keys: |
             ${{ runner.os }}-gradle-caches-
 
@@ -113,7 +105,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-jar
-          path: build/libs/*.jar # TODO: verifieer pad/naam
+          path: build/libs/*.jar
 
       - name: Login to GHCR (alleen op main) (Level 5)
         if: github.ref == 'refs/heads/main'
@@ -123,24 +115,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # In de solution bouwen we de container met Docker i.p.v. buildpacks.
-      # In deze monolitische oefening kopiëren we de JAR naar de Docker build context
-      # en bouwen we met docker/Dockerfile.
       - name: Prepare Docker context (copy JAR)
         run: |
           set -euo pipefail
-          JAR_FILE=$(ls -1 build/libs/*.jar 2>/dev/null | grep -v "-plain\.jar$" | head -n1 || true)
+          JAR_FILE=$(find docker -type f -name "*.jar" | head -n1 || true)
           if [ -z "${JAR_FILE}" ]; then
-            # Fallback naar eender welke JAR
-            JAR_FILE=$(ls -1 build/libs/*.jar 2>/dev/null | head -n1 || true)
-          fi
-          if [ -z "${JAR_FILE}" ]; then
-            echo "[ERROR] Geen JAR gevonden in build/libs. Heb je de build stap uitgevoerd?"
-            ls -R build/libs || true
-            exit 1
-          fi
+            echo "[ERROR] No JAR found in downloaded artifact. Contents:";
+            ls -R docker || true; exit 1; fi
           echo "Using JAR: ${JAR_FILE}"
-          mkdir -p docker
+          # Normalize path/name so Dockerfile can COPY it without build args
           cp -f "${JAR_FILE}" docker/app.jar
 
       - name: Build container image (Docker)
@@ -157,8 +140,3 @@ jobs:
           # (optioneel) publiceer ook latest tag
           docker tag ${IMAGE} ${LATEST}
           docker push ${LATEST}
-
-      - name: The End (samenvatting)
-        run: |
-          echo "✅ Monolitische pipeline klaar."
-          echo "🧩 Opdracht: Splits deze workflow in leesbare delen (meerdere jobs, composite action, reusable workflows)."
