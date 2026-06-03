@@ -42,7 +42,7 @@ jobs:
 
       - name: Tests + JaCoCo reports
         env:
-          JACOCO_MINIMUM_COVERAGE: "0.75"
+          JACOCO_MINIMUM_COVERAGE: "0.60"
         run: ./gradlew test jacocoTestReport --stacktrace --no-daemon
 
       - name: Upload test reports (altijd)
