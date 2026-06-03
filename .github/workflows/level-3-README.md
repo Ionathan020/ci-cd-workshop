@@ -39,3 +39,4 @@ Hints:
 - Maak gebruik van `jacocoTestReport` voor het genereren van rapporten.
 - Maak gebruik van `jacocoTestCoverageVerification` voor het bepalen van violationRules
 - De `build.gradle` dient uitgebreid te worden met bovenstaande items.
+- Exclude the Spring Boot entrypoint from coverage verification

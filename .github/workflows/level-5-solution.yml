@@ -41,8 +41,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Gradle
-        run: ./gradlew clean build
+      - name: Build jar
+        run: ./gradlew clean bootJar
 
       - name: Inspect workspace
         run: |
@@ -52,7 +52,7 @@ jobs:
           find . -name "MANIFEST.MF"
 
       - name: Build container image (Paketo)
-        run: ./gradlew bootBuildImage --imageName ${IMAGE}
+        run: ./gradlew bootBuildImage --imageName ${IMAGE} --stacktrace --info
 
       - name: Push image (alleen op main)
         if: github.ref == 'refs/heads/main'
