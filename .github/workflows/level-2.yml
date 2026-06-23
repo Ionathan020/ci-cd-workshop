@@ -21,16 +21,16 @@ jobs:
         run: gradle wrapper
 
       - name: Test with Gradle
-        run: gradle test
+        run: gradle test --stacktrace
 
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.0.0
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          file: ./build/reports/tests/test/index.html
-          flags: unittests
-          fail_ci_if_error: false
-          verbose: true
+          name: test-reports
+          path: |
+            build/test-results/test
+            build/reports/tests/test
 
 
         # TODO - Upload een test rapport met het resultaat van de gedraaide testen
