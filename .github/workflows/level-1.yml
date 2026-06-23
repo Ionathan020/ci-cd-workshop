@@ -11,8 +11,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v6
 
-        # TODO - Configureer JDK 21 - hint: wellicht ook iets met actions?
+      - name: Setup Java
+        uses: actions/setup-java@v5.3.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
-        # TODO - Setup Gradle
+      - name: Setup Gradle
+        run: gradle wrapper
 
-        # TODO - Run een gradle build command
+      - name: Build with Gradle
+        run: ./gradlew build
