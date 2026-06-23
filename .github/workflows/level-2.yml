@@ -11,10 +11,21 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v6
 
-        # TODO - Configureer JDK 21 - hint: wellicht ook iets met actions?
+      - name: Setup Java
+        uses: actions/setup-java@v5.3.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
-        # TODO - Setup Gradle
+      - name: Setup Gradle
+        run: gradle wrapper
 
-        # TODO - Run een gradle test command
+      - name: Test with Gradle
+        run: gradle test
+
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4.0.0
+
 
         # TODO - Upload een test rapport met het resultaat van de gedraaide testen
