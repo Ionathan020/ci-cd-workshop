@@ -32,8 +32,7 @@ jobs:
           name: test-reports
           path: |
             build/test-results/test
-            build/reports/tests/test
-        
+            build/reports/
 
         # TODO - Run de testen
 
