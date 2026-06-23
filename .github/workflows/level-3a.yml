@@ -23,7 +23,7 @@ jobs:
       - name: Rune Gradle tests
         env:
           JACOCO_MINIMUM_COVERAGE: 0.6
-        run: gradle test jacocoTestReport jacocoTestCoverageVerification --Stacktrace
+        run: gradle test jacocoTestReport jacocoTestCoverageVerification
 
       - name: Upload test reports
         if: always()
